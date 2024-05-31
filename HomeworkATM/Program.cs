@@ -74,14 +74,14 @@ namespace HomeworkATM
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"ПОПОЛНЕНИЕ КАРТЫ {_card.cardNumber}:");
             Console.WriteLine("Сообщения от банкомата");
-            ToppingUpCard(_card, dicAdd, _atm);
+            _atm.ToppingUpCard(_card, dicAdd);
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"ИНФОРМАЦИЯ ПО КАРТЕ {_card.cardNumber}");
             Console.WriteLine(_card.ToString());
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"ПОПОЛНЕНИЕ КАРТЫ {_card2.cardNumber}:");
             Console.WriteLine("Сообщения от банкомата");
-            ToppingUpCard(_card2, dicAdd2, _atm);
+            _atm.ToppingUpCard(_card2, dicAdd2);
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"ИНФОРМАЦИЯ ПО КАРТЕ {_card2.cardNumber}");
             Console.WriteLine(_card2.ToString());
@@ -90,14 +90,14 @@ namespace HomeworkATM
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"СНЯТИЕ С КАРТЫ {_card.cardNumber}:");
             Console.WriteLine("Сообщения от банкомата");
-            WithdrawalCard(_card, 500, _atm);
+            _atm.WithdrawalCard(_card, 500);
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"ИНФОРМАЦИЯ ПО КАРТЕ {_card.cardNumber}");
             Console.WriteLine(_card.ToString());
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"СНЯТИЕ С КАРТЫ {_card2.cardNumber}:");
             Console.WriteLine("Сообщения от банкомата");
-            WithdrawalCard(_card2, 1500, _atm);
+            _atm.WithdrawalCard(_card2, 1500);
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"ИНФОРМАЦИЯ ПО КАРТЕ {_card2.cardNumber}");
             Console.WriteLine(_card2.ToString());
@@ -105,9 +105,9 @@ namespace HomeworkATM
 
             //Console.WriteLine(NewCrypt("1428394874562349"));
 
-            Pickup(_atm, "1428394874562349");
+            _atm.Pickup("1428394874562349");
             Console.WriteLine("----------------------------------------");
-            Pickup(_atm,"1428394874562349");
+            _atm.Pickup("1428394874562349");
 
 
             Console.WriteLine("----------------------------------------");
@@ -118,7 +118,7 @@ namespace HomeworkATM
             Console.WriteLine("----------------------------------------");
 
         }
-
+        /*
         //ПОПОЛНЕНИЕ
         public static void ToppingUpCard(Card card, Dictionary<string, Banknote> setting, ATM atm)
         {
@@ -332,118 +332,10 @@ namespace HomeworkATM
             return res;
         }
 
-
-
-
-    }
-    public class Card
-    {
-        public string cardNumber { get; private set; }
-        public string ownerName { get; private set; }
-        public string endDate { get; private set; }
-        public string issuingBank { get; private set; }
-        public double moneySum { get; set; }
-
-        public Card(string cardNumber, string ownerName, string endDate, string issuingBank, double moneySum)
-        {
-            if (cardNumber.Length == 16 && Regex.IsMatch(cardNumber, @"[0-9]{16}"))
-            {
-                this.cardNumber = cardNumber;
-            }
-            else
-            {
-                throw new Exception();
-            }
-
-            this.ownerName = ownerName;
-            if (Regex.IsMatch(endDate, @"(0[1-9]|1[0-2])\.(0[1-9]|[1-9][0-9])"))
-            {
-                this.endDate = endDate;
-            }
-            this.issuingBank = issuingBank;
-            this.moneySum = moneySum;
-        }
-
-
-        public string ToString()
-        {
-            return $"Номер карты: {cardNumber} \nИмя владельца: {ownerName} \nМесяц и год окончания действия карты: {endDate} \nБанк-эмитент карты: {issuingBank} \nСумма денег на счету: {moneySum}\n";
-        }
-
-    }
-
-    public class ATM
-    {
-        public long bankID { get; private set; }
-        public string ownerATM { get; private set; }
-
-        public Dictionary<string, Stack<Banknote>> ATMkass;
-
-        public List<string> transHistory; // [<карта>: <вид транзакции> (<сумма>) => <ответ банкомата>]
-
-        public string validKey;
-
-        public ATM(string ownerATM, Dictionary<string, Stack<Banknote>> ATMDictionary, List<string> transHistory, string validKey)
-        {
-            var r = new Random();
-            this.bankID = r.Next();
-            this.ownerATM = ownerATM;
-            this.ATMkass = ATMDictionary;
-            this.transHistory = transHistory;
-            this.validKey = validKey;
-        }
-
-
-        public string ToString()
-        {
-            return $"ID Банка: {bankID} \nБанк, которому принадлежит банкомат: {ownerATM} \nСекретный ключ для валидации инкассаторов: {validKey}\n";
-        }
-
-
-        //возвращает общее количество купюр в кассете банкомата.
-        public int CashAmount()
-        {
-            var s = 0;
-            foreach (var item in ATMkass.Values)
-            {
-                s += item.Count;
-            }
-            return s;
-        }
-
-
-        //показывает историю транзакций
-        public void ShowTrans()
-        {
-            Console.WriteLine("ИСТОРИЯ ТРАНЗАКЦИЙ БАНКОМАТА");
-            var l = transHistory.ToList();
-            foreach (var item in l)
-            {
-                Console.WriteLine(item);
-            }
-        }
+        */
 
 
     }
-
-    public class Banknote
-    {
-        public string Nomimal {  get; private set; }
-        public string Series {  get; private set; }
-        public Banknote(string nominal, string series)
-        {
-            this.Nomimal = nominal;
-            this.Series = series;
-        }
-
-        public string ToString()
-        {
-            return $"Номинал: {Nomimal}, Серия: {Series}";
-        }
-    }
-
-
-
 }
 
 
